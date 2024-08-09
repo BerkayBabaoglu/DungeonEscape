@@ -1,52 +1,127 @@
 fileFormatVersion: 2
-guid: a428de0ec49bbc64cbeec16ca98e4574
+guid: ea3d66a7edd9d46d38e40be89ae8d3cf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 21300000
-    second: Foreground_Elements_0
+      213: 4721293536888397434
+    second: Waterfall_0
   - first:
-      213: 21300002
-    second: Foreground_Elements_1
+      213: 5364352939883245045
+    second: Waterfall_1
   - first:
-      213: 21300004
-    second: Foreground_Elements_2
+      213: 7196270143389622831
+    second: Waterfall_2
   - first:
-      213: 21300006
-    second: Foreground_Elements_3
+      213: 6029957480157117390
+    second: Waterfall_3
   - first:
-      213: 21300008
-    second: Foreground_Elements_4
+      213: -2507161886035769597
+    second: Waterfall_4
   - first:
-      213: 21300010
-    second: Foreground_Elements_5
+      213: 1725676371340164549
+    second: Waterfall_5
   - first:
-      213: 21300012
-    second: Foreground_Elements_6
+      213: 2872686455240326431
+    second: Waterfall_6
   - first:
-      213: 21300014
-    second: Foreground_Elements_7
+      213: 3786080894526622295
+    second: Waterfall_7
   - first:
-      213: 21300016
-    second: Foreground_Elements_8
+      213: 5045660051849922305
+    second: Waterfall_8
   - first:
-      213: 21300018
-    second: Foreground_Elements_9
+      213: 5612536237972652912
+    second: Waterfall_9
   - first:
-      213: 21300020
-    second: Foreground_Elements_10
+      213: -3250777559591057548
+    second: Waterfall_10
   - first:
-      213: 21300022
-    second: Foreground_Elements_11
+      213: 5957929059053060748
+    second: Waterfall_11
   - first:
-      213: 21300024
-    second: Foreground_Elements_12
+      213: 7109957084653153026
+    second: Waterfall_12
   - first:
-      213: 21300026
-    second: Foreground_Elements_13
+      213: 477525649501392199
+    second: Waterfall_13
   - first:
-      213: 21300028
-    second: Foreground_Elements_14
+      213: -8431399023861082550
+    second: Waterfall_14
+  - first:
+      213: -5115951240437522786
+    second: Waterfall_15
+  - first:
+      213: 447768722618067419
+    second: Waterfall_16
+  - first:
+      213: 8730975675779852889
+    second: Waterfall_17
+  - first:
+      213: -3300933181597420981
+    second: Waterfall_18
+  - first:
+      213: 7541503168263187259
+    second: Waterfall_19
+  - first:
+      213: -5806308423563604605
+    second: Waterfall_20
+  - first:
+      213: -675073502400653780
+    second: Waterfall_21
+  - first:
+      213: 8203429098523291671
+    second: Waterfall_22
+  - first:
+      213: 219257364728720650
+    second: Waterfall_23
+  - first:
+      213: 8458781440006651279
+    second: Waterfall_24
+  - first:
+      213: 8715392851287823110
+    second: Waterfall_25
+  - first:
+      213: 3020409149263879807
+    second: Waterfall_26
+  - first:
+      213: -9102966082491327057
+    second: Waterfall_27
+  - first:
+      213: 5664645608148975165
+    second: Waterfall_28
+  - first:
+      213: -8527461141348136443
+    second: Waterfall_29
+  - first:
+      213: -908826963640821454
+    second: Waterfall_30
+  - first:
+      213: -5617403070256607301
+    second: Waterfall_31
+  - first:
+      213: 5275563956605968481
+    second: Waterfall_32
+  - first:
+      213: -8289717914693220806
+    second: Waterfall_33
+  - first:
+      213: 4951532302442582524
+    second: Waterfall_34
+  - first:
+      213: -3006427023634639824
+    second: Waterfall_35
+  - first:
+      213: 7534001321458047645
+    second: Waterfall_36
+  - first:
+      213: 5834154964668067101
+    second: Waterfall_37
+  - first:
+      213: -3291032407325874115
+    second: Waterfall_38
+  - first:
+      213: -6674891174622030782
+    second: Waterfall_39
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -84,7 +159,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -93,7 +168,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 256
+  spritePixelsToUnits: 62
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -108,7 +183,7 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   swizzle: 50462976
   cookieLightType: 1
   platformSettings:
@@ -124,7 +199,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -137,7 +212,20 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
@@ -150,7 +238,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
@@ -163,7 +251,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Server
     maxTextureSize: 2048
@@ -176,18 +264,18 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Foreground_Elements_0
+      name: Waterfall_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 768
-        width: 256
-        height: 256
+        x: 4
+        y: 72
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +283,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4403c69a3b3ae04c8fca50da638faab
-      internalID: 21300000
+      spriteID: a7e94921577658140800000000000000
+      internalID: 4721293536888397434
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Foreground_Elements_1
+      name: Waterfall_1
       rect:
         serializedVersion: 2
-        x: 256
-        y: 768
-        width: 256
-        height: 256
+        x: 72
+        y: 72
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,20 +304,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ee7e7b8a2c4e1f49baca17c84979d46
-      internalID: 21300002
+      spriteID: 5fd2097c392027a40800000000000000
+      internalID: 5364352939883245045
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Foreground_Elements_2
+      name: Waterfall_2
       rect:
         serializedVersion: 2
-        x: 512
-        y: 768
-        width: 256
-        height: 256
+        x: 140
+        y: 72
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +325,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53f291c044015934683e259c131e206b
-      internalID: 21300004
+      spriteID: f22ec7461994ed360800000000000000
+      internalID: 7196270143389622831
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Foreground_Elements_3
+      name: Waterfall_3
       rect:
         serializedVersion: 2
-        x: 768
-        y: 768
-        width: 256
-        height: 256
+        x: 208
+        y: 72
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,20 +346,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c4109bb48697954095b6898da1faeb9
-      internalID: 21300006
+      spriteID: ecb797f4166bea350800000000000000
+      internalID: 6029957480157117390
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Foreground_Elements_4
+      name: Waterfall_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 256
-        height: 256
+        x: 276
+        y: 72
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +367,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2753f775268e5384abb3668be97d6ae8
-      internalID: 21300008
+      spriteID: 30780745c85c43dd0800000000000000
+      internalID: -2507161886035769597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Foreground_Elements_5
+      name: Waterfall_5
       rect:
         serializedVersion: 2
-        x: 256
-        y: 512
-        width: 256
-        height: 256
+        x: 4
+        y: 4
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,20 +388,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2dc8d66eb3bf62e45bfc6d20c01f2462
-      internalID: 21300010
+      spriteID: 5cdf3074485d2f710800000000000000
+      internalID: 1725676371340164549
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Foreground_Elements_6
+      name: Waterfall_6
       rect:
         serializedVersion: 2
-        x: 512
-        y: 512
-        width: 256
-        height: 256
+        x: 72
+        y: 4
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,20 +409,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f75d6383e207a6c4d99f3e07f301d687
-      internalID: 21300012
+      spriteID: f1dfca36c15ddd720800000000000000
+      internalID: 2872686455240326431
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Foreground_Elements_7
+      name: Waterfall_7
       rect:
         serializedVersion: 2
-        x: 768
-        y: 512
-        width: 256
-        height: 256
+        x: 140
+        y: 4
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,20 +430,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 349f891d97f49014dbbdd631a0af52f6
-      internalID: 21300014
+      spriteID: 75a0729938cda8430800000000000000
+      internalID: 3786080894526622295
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Foreground_Elements_8
+      name: Waterfall_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 256
-        width: 256
-        height: 256
+        x: 208
+        y: 4
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,20 +451,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0517b2cbb5606248ae34b2d0907e26d
-      internalID: 21300016
+      spriteID: 107c4e78519c50640800000000000000
+      internalID: 5045660051849922305
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Foreground_Elements_9
+      name: Waterfall_9
       rect:
         serializedVersion: 2
-        x: 256
-        y: 256
-        width: 256
-        height: 256
+        x: 276
+        y: 4
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -384,113 +472,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ae2282979f07e441b4017f64feb149e
-      internalID: 21300018
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Foreground_Elements_10
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 256
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 066e7cce8ca8db74e9c4f0934fb565c6
-      internalID: 21300020
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Foreground_Elements_11
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 256
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c61810752b28078418bfb068c562aa5c
-      internalID: 21300022
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Foreground_Elements_12
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e792e81e9501b8b4abebfa6e19c10756
-      internalID: 21300024
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Foreground_Elements_13
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 0
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dd108934a5574b141b1c23ab72ad5bdc
-      internalID: 21300026
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Foreground_Elements_14
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 66a64e4f90a37974cac9bd7fcec5c4ff
-      internalID: 21300028
+      spriteID: 0730e51d8fbb3ed40800000000000000
+      internalID: 5612536237972652912
       vertices: []
       indices: 
       edges: []
@@ -498,7 +481,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: b298b0272db7e634ba3d015012161dd6
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -506,21 +489,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Foreground_Elements_0: 21300000
-      Foreground_Elements_1: 21300002
-      Foreground_Elements_10: 21300020
-      Foreground_Elements_11: 21300022
-      Foreground_Elements_12: 21300024
-      Foreground_Elements_13: 21300026
-      Foreground_Elements_14: 21300028
-      Foreground_Elements_2: 21300004
-      Foreground_Elements_3: 21300006
-      Foreground_Elements_4: 21300008
-      Foreground_Elements_5: 21300010
-      Foreground_Elements_6: 21300012
-      Foreground_Elements_7: 21300014
-      Foreground_Elements_8: 21300016
-      Foreground_Elements_9: 21300018
+      Waterfall_0: 4721293536888397434
+      Waterfall_1: 5364352939883245045
+      Waterfall_2: 7196270143389622831
+      Waterfall_3: 6029957480157117390
+      Waterfall_4: -2507161886035769597
+      Waterfall_5: 1725676371340164549
+      Waterfall_6: 2872686455240326431
+      Waterfall_7: 3786080894526622295
+      Waterfall_8: 5045660051849922305
+      Waterfall_9: 5612536237972652912
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
