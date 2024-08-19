@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _jumpForce = 5.0f;
     private bool _resetJump = false;
+    [SerializeField]
+    private float speed = 2.5f;
 
 
     // Start is called before the first frame update
@@ -26,7 +28,7 @@ public class Player : MonoBehaviour
     void Movement()
     {
         float move = Input.GetAxisRaw("Horizontal");
-        _rigid.velocity = new Vector2(move, _rigid.velocity.y);
+        _rigid.velocity = new Vector2(move * speed, _rigid.velocity.y);
 
         if(Input.GetKeyDown(KeyCode.Space) && IsGrounded() == true)
         {
