@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -13,6 +14,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed = 2.5f;
     private PlayerAnimations _anim;
+    private SpriteRenderer _playerSprite;
+    private SpriteRenderer _swordArcSprite;
     
 
 
@@ -21,12 +24,15 @@ public class Player : MonoBehaviour
     {
         _rigid = GetComponent<Rigidbody2D>();
         _anim = GetComponent<PlayerAnimations>();
+        _playerSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        _swordArcSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Movement();
+        AttackSystem();
     }
 
     void Movement()
@@ -36,13 +42,15 @@ public class Player : MonoBehaviour
 
         if (move > 0)
         {
+            flip(true);
             // Sað yöne hareket ediyor
-            transform.localScale = new Vector3(1, 1, 1);
+            
         }
         else if (move < 0)
         {
+            flip(false);
             // Sol yöne hareket ediyor
-            transform.localScale = new Vector3(-1, 1, 1);
+            
         }
 
 
@@ -51,6 +59,7 @@ public class Player : MonoBehaviour
             _rigid.velocity = new Vector2(_rigid.velocity.x, _jumpForce);
             StartCoroutine(resetJumpRoutine());
             _anim.Jump(true);
+            
         }
         
         _rigid.velocity = new Vector2(move * speed, _rigid.velocity.y);
@@ -74,6 +83,44 @@ public class Player : MonoBehaviour
         return false;
     }
 
+    void flip(bool faceRight)
+    {
+        if(faceRight == true)
+        {
+            _playerSprite.flipX = false;
+            _swordArcSprite.flipX = false;
+            _swordArcSprite.flipY = false;
+
+            Vector3 newPos = _swordArcSprite.transform.localPosition;
+            newPos.x = 1.01f;
+            _swordArcSprite.transform.localPosition = newPos;
+
+            //transform.localScale = new Vector3(1, 1, 1);
+
+
+        }
+        else if(faceRight == false)
+        {
+            Debug.Log("Sola bakiyorum");
+            _playerSprite.flipX = true;
+            _swordArcSprite.flipX = true;
+            _swordArcSprite.flipY = true;
+
+            Vector3 newPos = _swordArcSprite.transform.localPosition;
+            newPos.x = -1.01f;
+            _swordArcSprite.transform.localPosition = newPos;
+
+            //transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
+
+    void AttackSystem()
+    {
+        if (Input.GetMouseButtonDown(0) && IsGrounded() == true)
+        {
+            _anim.Attack();
+        }
+    }
     
     
     
