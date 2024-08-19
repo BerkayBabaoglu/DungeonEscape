@@ -35,13 +35,13 @@ public class Player : MonoBehaviour
 
         }
 
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.53f, 1 << 8);
-        Debug.DrawRay(transform.position, Vector2.down * 0.53f, Color.green);
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, 1 << 8);
+        Debug.DrawRay(transform.position, Vector2.down * 0.6f, Color.green);
 
         if(hitInfo.collider != null)
         {
             Debug.Log("Hit: " + hitInfo.collider.name);
-            if(resetJumpNeeded = false)
+            if(resetJumpNeeded == false)
                 _grounded = true;
         }
         _rigid.velocity = new Vector2(move, _rigid.velocity.y);
