@@ -11,6 +11,7 @@ public class MossGiant : Enemy
     private bool isWaiting = true;
     
     
+    
     void Start()
     {
         targetPoint = pointA;
@@ -21,10 +22,12 @@ public class MossGiant : Enemy
 
     public override void Update()
     {
-        if(isWaiting == true)
+        if (isWaiting == true)
             StartCoroutine(WaitForIdleAnimation());
         else
             Movement();
+        
+            
     }
     
     private void Movement()
@@ -34,9 +37,11 @@ public class MossGiant : Enemy
 
         if (Vector2.Distance(transform.position, targetPoint.position) < 0.1f)
         {
+            
             targetPoint = targetPoint == pointA ? pointB : pointA;
             //yonu guncelle
             UpdateFacingDirection();
+            
         }
     }
 
@@ -45,23 +50,46 @@ public class MossGiant : Enemy
         //yonu hedef noktasina göre guncelle
         if(targetPoint == pointA)
         {
+            
             mossGiantSprite.flipX = true;
             isFacingRight = false;
+
         }
         else if(targetPoint == pointB)
         {
+            
             mossGiantSprite.flipX = false;
             isFacingRight = true;
+            
         }
+       
+        
     }
 
     IEnumerator WaitForIdleAnimation()
     {
-        AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
-        float idleDuration = stateInfo.length - stateInfo.normalizedTime * stateInfo.length;
+        isWaiting = true;
 
-        yield return new WaitForSeconds(idleDuration);
+        if(targetPoint == pointA)
+        {
+            AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
+            float idleDuration = stateInfo.length - stateInfo.normalizedTime * stateInfo.length;
+
+            yield return new WaitForSeconds(idleDuration);
+        }
+        else if(targetPoint == pointB)
+        {
+            AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
+            float idleDuration = stateInfo.length - stateInfo.normalizedTime * stateInfo.length;
+
+            yield return new WaitForSeconds(idleDuration);
+        }
+
+        
         isWaiting = false;
+        
+        
+
     }
     
 }
