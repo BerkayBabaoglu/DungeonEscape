@@ -7,7 +7,19 @@ public class Spider : Enemy
     
     void Start()
     {
-        Attack();
+        
+    }
+
+    public override void Attack()
+    {
+        base.Attack();
+        Debug.Log("My name is: " + this.gameObject.name);
+    }
+
+    public override void Update()
+    {
+        Debug.Log("Spider is coming.");
+
     }
 
 }

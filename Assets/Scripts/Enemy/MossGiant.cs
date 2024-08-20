@@ -7,8 +7,12 @@ public class MossGiant : Enemy
     
     void Start()
     {
-        Attack();
+        
     }
 
+    public override void Update()
+    {
+        Debug.Log("MossGiant is coming.");
+    }
     
 }
