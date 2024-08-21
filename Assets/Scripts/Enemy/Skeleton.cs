@@ -9,10 +9,18 @@ public class Skeleton : Enemy , IDamagable
     public override void Init()
     {
         base.Init();
+        Health = base.health;
     }
 
     public void Damage()
     {
+        
 
+        health--;
+
+        if(health < 1)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
