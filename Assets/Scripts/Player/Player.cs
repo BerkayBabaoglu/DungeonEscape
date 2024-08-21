@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D _rigid;
     [SerializeField]
-    private float _jumpForce = 5.0f;
+    private float _jumpForce = 7.0f;
     private bool _resetJump = false;
     private bool _grounded = false;
     [SerializeField]
