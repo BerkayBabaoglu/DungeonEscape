@@ -1,88 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class MossGiant : Enemy
 {
-    private Transform targetPoint;
-    private SpriteRenderer mossGiantSprite;
-    private bool isFacingRight = true;
+    private Vector3 _currentTarget;
     private Animator _anim;
-    private bool isWaiting = true;
-    
+    private SpriteRenderer _mossGiantSprite;
 
-
-
-    void Start()
+    private void Start()
     {
-        targetPoint = pointA;
-        speed = 1;
-        mossGiantSprite = GetComponentInChildren<SpriteRenderer>();
-        _anim = GetComponentInChildren<Animator>();
+        _anim = transform.GetChild(0).GetComponent<Animator>();
+        _mossGiantSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
+
+
 
     public override void Update()
     {
-        if (isWaiting == true)
-            StartCoroutine(WaitForIdleAnimation());
+
+        if (_anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            return;
+        }
+        
+        Movement();
+
+    }
+
+    void Movement()
+    {
+        if (_currentTarget == pointA.position)
+        {
+            _mossGiantSprite.flipX = true;
+        }
         else
-            Movement();
-        
-    }
-
-    private void Movement()
-    {
-
-        
-        
-        transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
-        
-        if (Vector2.Distance(transform.position, targetPoint.position) < 0.1f)
         {
-
-            targetPoint = targetPoint == pointA ? pointB : pointA;
-           
-            //yonu guncelle
-            UpdateFacingDirection();
-
+            _mossGiantSprite.flipX = false;
         }
 
-    }
-
-    private void UpdateFacingDirection()
-    {
-        //yonu hedef noktasina göre guncelle
-        if (targetPoint == pointA)
+        if (transform.position == pointA.position)
         {
-
-            mossGiantSprite.flipX = true;
-            isFacingRight = false;
-
+            _currentTarget = pointB.position;
+            _anim.SetTrigger("Idle");
         }
-        else if (targetPoint == pointB)
+        else if (transform.position == pointB.position)
         {
-
-            mossGiantSprite.flipX = false;
-            isFacingRight = true;
-
+            _currentTarget = pointA.position;
+            _anim.SetTrigger("Idle");
         }
 
-
+        transform.position = Vector3.MoveTowards(transform.position, _currentTarget, speed * Time.deltaTime);
     }
-
-    IEnumerator WaitForIdleAnimation()
-    {
-
-        AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
-        float idleDuration = stateInfo.length - stateInfo.normalizedTime * stateInfo.length;
-
-        yield return new WaitForSeconds(idleDuration);
-
-        isWaiting = false;
-
-    }
-
 }
