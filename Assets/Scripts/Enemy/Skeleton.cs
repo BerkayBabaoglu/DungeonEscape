@@ -17,10 +17,13 @@ public class Skeleton : Enemy , IDamagable
         
 
         health--;
-
+        anim.SetTrigger("Hit");
+        isHit = true;
+        anim.SetBool("InCombat", true);
         if(health < 1)
         {
             Destroy(this.gameObject);
         }
     }
+
 }
