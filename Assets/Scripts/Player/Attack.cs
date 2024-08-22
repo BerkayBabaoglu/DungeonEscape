@@ -10,7 +10,6 @@ public class Attack : MonoBehaviour
     {
         Debug.Log("Hit: " + other.name);
 
-
         IDamagable hit = other.GetComponent<IDamagable>();
 
         if(hit != null)

@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
     {
         _rigid = GetComponent<Rigidbody2D>();
         _anim = GetComponent<PlayerAnimations>();
+
+        
+        
+
         _playerSprite = transform.GetChild(0).GetComponent<SpriteRenderer>(); //sorunu getchild(0) yaparak çözdüm.
         _swordArcSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
@@ -91,6 +95,8 @@ public class Player : MonoBehaviour
             _swordArcSprite.flipX = false;
             _swordArcSprite.flipY = false;
 
+            
+
             Vector3 newPos = _swordArcSprite.transform.localPosition;
             newPos.x = 1.01f;
             _swordArcSprite.transform.localPosition = newPos;
@@ -106,6 +112,8 @@ public class Player : MonoBehaviour
             _swordArcSprite.flipX = true;
             _swordArcSprite.flipY = true;
 
+            
+
             Vector3 newPos = _swordArcSprite.transform.localPosition;
             newPos.x = -1.01f;
             _swordArcSprite.transform.localPosition = newPos;
@@ -119,6 +127,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && IsGrounded() == true)
         {
             _anim.Attack();
+
         }
     }
     
