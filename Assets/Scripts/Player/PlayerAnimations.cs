@@ -7,6 +7,7 @@ public class PlayerAnimations : MonoBehaviour
 
     private Animator _anim;
     private Animator _swordAnim;
+
     
 
     // Start is called before the first frame update
@@ -28,10 +29,10 @@ public class PlayerAnimations : MonoBehaviour
 
     public void Attack()
     {
-
+        
         _anim.SetTrigger("Attack");
         _swordAnim.SetTrigger("SwordAnimation");
 
     }
-    
+
 }

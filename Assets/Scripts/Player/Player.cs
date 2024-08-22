@@ -25,8 +25,6 @@ public class Player : MonoBehaviour
         _rigid = GetComponent<Rigidbody2D>();
         _anim = GetComponent<PlayerAnimations>();
 
-        
-        
 
         _playerSprite = transform.GetChild(0).GetComponent<SpriteRenderer>(); //sorunu getchild(0) yaparak çözdüm.
         _swordArcSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
@@ -126,6 +124,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && IsGrounded() == true)
         {
+            
             _anim.Attack();
 
         }
