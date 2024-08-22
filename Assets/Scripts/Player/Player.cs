@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour , IDamagable
 {
 
     private Rigidbody2D _rigid;
@@ -16,8 +16,10 @@ public class Player : MonoBehaviour
     private PlayerAnimations _anim;
     private SpriteRenderer _playerSprite;
     private SpriteRenderer _swordArcSprite;
-    
 
+    public int Health { get; set; }
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -130,13 +132,16 @@ public class Player : MonoBehaviour
         }
     }
     
-    
-    
 
     IEnumerator resetJumpRoutine()
     {
         _resetJump = true;
         yield return new WaitForSeconds(0.1f);
         _resetJump = false;
+    }
+
+    public void Damage()
+    {
+        Debug.Log("Player::Damage()");
     }
 }

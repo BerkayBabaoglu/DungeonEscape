@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour 
 {
     [SerializeField]
     protected int health;
@@ -21,6 +21,9 @@ public abstract class Enemy : MonoBehaviour
     protected bool isHit = false;
 
     protected Player player;
+
+    
+
 
     public virtual void Init()
     {
