@@ -20,7 +20,7 @@ public class MossGiant : Enemy, IDamagable
 
     public void Damage()
     {
-
+        Debug.Log("MossGiant::Damage()");
         health--;
         anim.SetTrigger("Hit");
         isHit = true;
