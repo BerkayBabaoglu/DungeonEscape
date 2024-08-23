@@ -17,7 +17,7 @@ public class Spider : Enemy , IDamagable
 
     public override void Movement()
     {
-        base.Movement();
+        //sit still
 
     }
 
