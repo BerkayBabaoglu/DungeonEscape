@@ -21,9 +21,7 @@ public abstract class Enemy : MonoBehaviour
     protected bool isHit = false;
 
     protected Player player;
-
-    
-
+    protected bool isDead = false;
 
     public virtual void Init()
     {
@@ -44,7 +42,8 @@ public abstract class Enemy : MonoBehaviour
             return;
         }
 
-        Movement();
+        if(isDead == false)
+            Movement();
     }
         
     public virtual void Movement()
