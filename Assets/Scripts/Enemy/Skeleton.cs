@@ -15,26 +15,11 @@ public class Skeleton : Enemy , IDamagable
     public override void Movement()
     { 
         base.Movement();
-
-        float distance = Vector3.Distance(player.transform.position, transform.position);
-
-
-        Vector3 direction = player.transform.localPosition - transform.localPosition;
-
-        if(direction.x > 0 && anim.GetBool("InCombat") == true)
-        {
-            sprite.flipX = false;
-        }
-        else if(direction.x < 0 && anim.GetBool("InCombat") == true)
-        {
-            sprite.flipX = true;
-        }
-
     }
 
     public void Damage()
     {
-        
+        Debug.Log("Skeleton::Damage()");
         health--;
         anim.SetTrigger("Hit");
         isHit = true;

@@ -16,18 +16,6 @@ public class MossGiant : Enemy, IDamagable
     {
         base.Movement();
 
-        float distance = Vector3.Distance(player.transform.position, transform.position);
-
-        Vector3 direction = player.transform.localPosition - transform.localPosition;
-
-        if(direction.x > 0 && anim.GetBool("InCombat") == true) 
-        {
-            sprite.flipX = false;
-        }
-        else if(direction.x < 0 && anim.GetBool("InCombat") == true)
-        {
-            sprite.flipX = true;
-        }
     }
 
     public void Damage()

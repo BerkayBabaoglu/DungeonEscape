@@ -12,6 +12,13 @@ public class Spider : Enemy , IDamagable
     public override void Init()
     {
         base.Init();
+        Health = base.health;
+    }
+
+    public override void Movement()
+    {
+        base.Movement();
+
     }
 
     public void Damage()

@@ -1,9 +1,9 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 
-public class Player : MonoBehaviour , IDamagable
+public class Player : MonoBehaviour, IDamagable
 {
 
     private Rigidbody2D _rigid;
@@ -19,7 +19,7 @@ public class Player : MonoBehaviour , IDamagable
 
     public int Health { get; set; }
 
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour , IDamagable
         _anim = GetComponent<PlayerAnimations>();
 
 
-        _playerSprite = transform.GetChild(0).GetComponent<SpriteRenderer>(); //sorunu getchild(0) yaparak çözdüm.
+        _playerSprite = transform.GetChild(0).GetComponent<SpriteRenderer>(); //sorunu getchild(0) yaparak Ã§Ã¶zdÃ¼m.
         _swordArcSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
 
@@ -47,14 +47,14 @@ public class Player : MonoBehaviour , IDamagable
         if (move > 0)
         {
             flip(true);
-            // Sað yöne hareket ediyor
-            
+            // SaÃ° yÃ¶ne hareket ediyor
+
         }
         else if (move < 0)
         {
             flip(false);
-            // Sol yöne hareket ediyor
-            
+            // Sol yÃ¶ne hareket ediyor
+
         }
 
 
@@ -63,9 +63,9 @@ public class Player : MonoBehaviour , IDamagable
             _rigid.velocity = new Vector2(_rigid.velocity.x, _jumpForce);
             StartCoroutine(resetJumpRoutine());
             _anim.Jump(true);
-            
+
         }
-        
+
         _rigid.velocity = new Vector2(move * speed, _rigid.velocity.y);
 
         _anim.Move(move);
@@ -76,9 +76,9 @@ public class Player : MonoBehaviour , IDamagable
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 1f, 1 << 8);
         Debug.DrawRay(transform.position, Vector2.down, Color.green);
 
-        if(hitInfo.collider != null)
+        if (hitInfo.collider != null)
         {
-            if(_resetJump == false)
+            if (_resetJump == false)
             {
                 _anim.Jump(false);
                 return true;
@@ -89,13 +89,15 @@ public class Player : MonoBehaviour , IDamagable
 
     void flip(bool faceRight)
     {
-        if(faceRight == true)
+        if (faceRight == true)
         {
             _playerSprite.flipX = false;
             _swordArcSprite.flipX = false;
             _swordArcSprite.flipY = false;
 
+
             
+
 
             Vector3 newPos = _swordArcSprite.transform.localPosition;
             newPos.x = 1.01f;
@@ -105,14 +107,15 @@ public class Player : MonoBehaviour , IDamagable
 
 
         }
-        else if(faceRight == false)
+        else if (faceRight == false)
         {
-            
+
             _playerSprite.flipX = true;
             _swordArcSprite.flipX = true;
             _swordArcSprite.flipY = true;
 
             
+
 
             Vector3 newPos = _swordArcSprite.transform.localPosition;
             newPos.x = -1.01f;
@@ -126,12 +129,12 @@ public class Player : MonoBehaviour , IDamagable
     {
         if (Input.GetMouseButtonDown(0) && IsGrounded() == true)
         {
-            
+
             _anim.Attack();
 
         }
     }
-    
+
 
     IEnumerator resetJumpRoutine()
     {
