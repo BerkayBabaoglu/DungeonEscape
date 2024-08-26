@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour 
+public abstract class Enemy : MonoBehaviour
 {
     [SerializeField]
     protected int health;
@@ -12,9 +12,9 @@ public abstract class Enemy : MonoBehaviour
     protected int gems;
 
     [SerializeField]
-    protected Transform pointA, pointB;
+    protected Transform[] patrolPoints;
 
-    protected Vector3 currentTarget;
+    protected Transform currentTarget;
     protected Animator anim;
     protected SpriteRenderer sprite;
 
@@ -23,11 +23,17 @@ public abstract class Enemy : MonoBehaviour
     protected Player player;
     protected bool isDead = false;
 
+    protected EnemyState currentState;
+
+    protected int currentTargetIndex = 0;
+
     public virtual void Init()
     {
         anim = transform.GetChild(0).GetComponent<Animator>();
         sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        SetCurrentTarget();
     }
 
     private void Start()
@@ -37,61 +43,102 @@ public abstract class Enemy : MonoBehaviour
 
     public void Update()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") && anim.GetBool("InCombat") == false)
+        if (currentState == EnemyState.Patrolling && !isDead)
         {
-            return;
-        }
-
-        if(isDead == false)
             Movement();
+        }
     }
-        
+
     public virtual void Movement()
     {
-        if (currentTarget == pointA.position)
+        if (currentTarget == null)
+            return;
+
+        float distance = Vector3.Distance(transform.position, currentTarget.position);
+
+        if (distance < 0.1f)
         {
-            sprite.flipX = true;
+            OnTargetPointReached();
         }
         else
         {
-            sprite.flipX = false;
+            transform.position = Vector3.MoveTowards(transform.position, currentTarget.position, speed * Time.deltaTime);
         }
-
-        if (transform.position == pointA.position)
-        {
-            currentTarget = pointB.position;
-            anim.SetTrigger("Idle");
-        }
-        else if (transform.position == pointB.position)
-        {
-            currentTarget = pointA.position;
-            anim.SetTrigger("Idle");
-        }
-
-        if (isHit == false)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
-        }
-
-        float distance = Vector2.Distance(transform.position, player.transform.position);
-
-        if(distance > 2.0f)
-        {
-            isHit = false;
-            anim.SetBool("InCombat", false);
-        }
-
-        Vector3 direction = player.transform.localPosition - transform.localPosition;
-
-        if (direction.x > 0 && anim.GetBool("InCombat") == true)
-        {
-            sprite.flipX = false;
-        }
-        else if (direction.x < 0 && anim.GetBool("InCombat") == true)
-        {
-            sprite.flipX = true;
-        }
-
     }
 
+    void OnTargetPointReached()
+    {
+        SetCurrentState(EnemyState.Idle);
+        StartCoroutine(WaitInterPatrolIE());
+    }
+
+    private IEnumerator WaitInterPatrolIE()
+    {
+        yield return new WaitForSeconds(3f);
+        SetCurrentTarget();
+    }
+
+    void SetCurrentState(EnemyState state)
+    {
+        currentState = state;
+
+        switch (currentState)
+        {
+            case EnemyState.Idle:
+                anim.SetInteger("AnimIndex", (int)AnimationType.Idle);
+                break;
+            case EnemyState.Incombat:
+                anim.SetInteger("AnimIndex", (int)AnimationType.Attack);
+                break;
+            case EnemyState.Death:
+                anim.SetInteger("AnimIndex", (int)AnimationType.Death);
+                break;
+            case EnemyState.Patrolling:
+                anim.SetInteger("AnimIndex", (int)AnimationType.Walk);
+                break;
+            case EnemyState.Hit:
+                anim.SetInteger("AnimIndex", (int)AnimationType.Hit);
+                break;
+        }
+    }
+
+    void SetCurrentTarget()
+    {
+        if (patrolPoints.Length == 0)
+            return;
+
+        
+        currentTarget = patrolPoints[++currentTargetIndex % patrolPoints.Length];
+        SetCurrentState(EnemyState.Patrolling);
+
+        FlipImage();
+    }
+
+    void FlipImage()
+    {
+        if (currentTarget != null && patrolPoints.Length > 1)
+        {
+            sprite.flipX = currentTarget.position.x < transform.position.x;
+        }
+    }
+
+   
+    public enum EnemyState
+    {
+        Idle,
+        Incombat,
+        Death,
+        Patrolling,
+        Hit
+    }
+
+    public enum AnimationType
+    {
+        Idle = 0,
+        Walk,
+        Death,
+        Attack,
+        Hit
+    }
 }
+

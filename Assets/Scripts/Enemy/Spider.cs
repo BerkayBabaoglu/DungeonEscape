@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class Spider : Enemy , IDamagable
 {
     [SerializeField]
     private GameObject acidEffectPrefab;
+    private SpriteRenderer _spiderSprite;
     
 
     public int Health { get; set; }
+
 
     public override void Init()
     {
@@ -36,6 +39,16 @@ public class Spider : Enemy , IDamagable
 
     public void Attack()
     {
+        
         Instantiate(acidEffectPrefab, transform.position, Quaternion.identity);
+        
     }
+
+    public bool Flip(bool isLeft)
+    {
+        isLeft = _spiderSprite.flipX;
+        return isLeft;
+    }
+
+    
 }

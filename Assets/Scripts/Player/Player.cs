@@ -96,7 +96,6 @@ public class Player : MonoBehaviour, IDamagable
             _swordArcSprite.flipY = false;
 
 
-            
 
 
             Vector3 newPos = _swordArcSprite.transform.localPosition;

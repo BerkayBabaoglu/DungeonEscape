@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MossGiant : Enemy, IDamagable
@@ -22,14 +24,16 @@ public class MossGiant : Enemy, IDamagable
     {
         Debug.Log("MossGiant::Damage()");
         health--;
-        anim.SetTrigger("Hit");
+        //SetCurrentState(EnemyState.Hit);
         isHit = true;
-        anim.SetBool("InCombat", true);
+        //SetCurrentState(EnemyState.Incombat);
         if (health < 1)
         {
             isDead = true;
-            anim.SetTrigger("Death");
+            //SetCurrentState(EnemyState.Death);
         }
 
     }
+
+    
 }
