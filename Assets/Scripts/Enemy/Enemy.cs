@@ -126,25 +126,81 @@ public abstract class Enemy : MonoBehaviour
         FlipImage();
     }
 
+
     public void OnPlayerInteracted()
     {
-        
-        currentTarget = player.transform;
-        StartCoroutine(AttackIE());
-        
+        if(player != null && !player.IsDead())
+        {
+            // Sadece x ekseninde hareket etmek için, player'ýn y konumunu koruyarak yeni bir hedef pozisyon oluþturuyoruz
+            Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
+            currentTarget = new GameObject().transform;  // Geçici bir GameObject kullanarak hedef oluþturuyoruz
+            currentTarget.position = targetPosition;
+
+            SetCurrentState(EnemyState.Incombat);
+            StartCoroutine(AttackIE());
+        }
+       
     }
+
+    //public void OnPlayerInteracted()
+    //{
+        
+    //    currentTarget = player.transform;
+    //    StartCoroutine(AttackIE());
+        
+    //}
 
     IEnumerator AttackIE()
     {
         yield return new WaitForSeconds(1.5f);
         SetCurrentState(EnemyState.Incombat);
         
+        
     }
 
     public void OnPlayerExited()
     {
-        SetCurrentTarget();
+        if (!player.IsDead())
+        {
+            SetCurrentTarget();
+        }
+        else
+        {
+            SetCurrentState(EnemyState.Patrolling);
+            SetCurrentTarget();
+        }
+        
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Player trigger'a girdiðinde
+        if (other.CompareTag("Player"))
+        {
+            Player player = other.GetComponent<Player>();
+
+            if (player != null && !player.IsDead())
+            {
+                OnPlayerInteracted();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        // Player trigger'dan çýktýðýnda
+        if (other.CompareTag("Player"))
+        {
+            Player player = other.GetComponent<Player>();
+
+            if (player != null && !player.IsDead())
+            {
+                OnPlayerExited();
+            }
+        }
+    }
+
+
 
     void FlipImage()
     {
@@ -156,24 +212,31 @@ public abstract class Enemy : MonoBehaviour
 
     void Situation()
     {
-        if (isDead == true)
+        if (isDead)
         {
             SetCurrentState(EnemyState.Death);
+            StartCoroutine(DestroyAfterDeath());
             return;
         }
 
-        if (isHit == true)
+        if (isHit)
         {
-
-            StartCoroutine(situationIE());
+            StartCoroutine(SituationIE());
         }
         isHit = false;
     }
 
-    IEnumerator situationIE()
+    IEnumerator SituationIE()
     {
+        SetCurrentState(EnemyState.Hit);  // Önce Hit durumuna geçiyoruz.
         yield return new WaitForSeconds(1.5f);
-        SetCurrentState(EnemyState.Hit);
+        SetCurrentState(EnemyState.Incombat);  // Hit animasyonu bittiðinde tekrar Incombat durumuna geçiyoruz.
+    }
+
+    private IEnumerator DestroyAfterDeath()
+    {
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 
 

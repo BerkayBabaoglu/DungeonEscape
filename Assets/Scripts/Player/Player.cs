@@ -19,6 +19,7 @@ public class Player : MonoBehaviour, IDamagable
     [SerializeField]
     private int health = 5;
     private bool isHit = false;
+    private bool isDead = false;
 
     public int Health { get; set; }
 
@@ -152,14 +153,16 @@ public class Player : MonoBehaviour, IDamagable
             isHit = false;
         }
         
-        if(health < 1)
+        if(health < 1 && !isDead)
         {
             _anim.DeathPlayer();
-            return;
+            isDead = true;
         }
     }
 
-   
-
+    public bool IsDead()
+    {
+        return isDead;
+    }
 
 }
