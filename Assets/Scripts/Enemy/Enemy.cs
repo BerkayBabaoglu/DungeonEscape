@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
@@ -19,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
     protected SpriteRenderer sprite;
 
     protected bool isHit = false;
+    
 
     protected Player player;
     protected bool isDead = false;
@@ -27,12 +31,15 @@ public abstract class Enemy : MonoBehaviour
 
     protected int currentTargetIndex = 0;
 
+    protected float distanceFromTarget = 0.3f;
+
+
     public virtual void Init()
     {
         anim = transform.GetChild(0).GetComponent<Animator>();
         sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
+        
         SetCurrentTarget();
     }
 
@@ -43,10 +50,13 @@ public abstract class Enemy : MonoBehaviour
 
     public void Update()
     {
-        if (currentState == EnemyState.Patrolling && !isDead)
+        if (currentState != EnemyState.Idle && !isDead)
         {
             Movement();
         }
+
+        Situation();
+
     }
 
     public virtual void Movement()
@@ -68,6 +78,8 @@ public abstract class Enemy : MonoBehaviour
 
     void OnTargetPointReached()
     {
+        
+
         SetCurrentState(EnemyState.Idle);
         StartCoroutine(WaitInterPatrolIE());
     }
@@ -78,7 +90,7 @@ public abstract class Enemy : MonoBehaviour
         SetCurrentTarget();
     }
 
-    void SetCurrentState(EnemyState state)
+    public void SetCurrentState(EnemyState state)
     {
         currentState = state;
 
@@ -87,11 +99,11 @@ public abstract class Enemy : MonoBehaviour
             case EnemyState.Idle:
                 anim.SetInteger("AnimIndex", (int)AnimationType.Idle);
                 break;
-            case EnemyState.Incombat:
-                anim.SetInteger("AnimIndex", (int)AnimationType.Attack);
-                break;
             case EnemyState.Death:
                 anim.SetInteger("AnimIndex", (int)AnimationType.Death);
+                break;
+            case EnemyState.Incombat:
+                anim.SetInteger("AnimIndex", (int)AnimationType.Attack);
                 break;
             case EnemyState.Patrolling:
                 anim.SetInteger("AnimIndex", (int)AnimationType.Walk);
@@ -102,16 +114,36 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    void SetCurrentTarget()
+    public void SetCurrentTarget()
     {
         if (patrolPoints.Length == 0)
             return;
 
-        
         currentTarget = patrolPoints[++currentTargetIndex % patrolPoints.Length];
+
         SetCurrentState(EnemyState.Patrolling);
 
         FlipImage();
+    }
+
+    public void OnPlayerInteracted()
+    {
+        
+        currentTarget = player.transform;
+        StartCoroutine(AttackIE());
+        
+    }
+
+    IEnumerator AttackIE()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SetCurrentState(EnemyState.Incombat);
+        
+    }
+
+    public void OnPlayerExited()
+    {
+        SetCurrentTarget();
     }
 
     void FlipImage()
@@ -122,7 +154,29 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-   
+    void Situation()
+    {
+        if (isDead == true)
+        {
+            SetCurrentState(EnemyState.Death);
+            return;
+        }
+
+        if (isHit == true)
+        {
+
+            StartCoroutine(situationIE());
+        }
+        isHit = false;
+    }
+
+    IEnumerator situationIE()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SetCurrentState(EnemyState.Hit);
+    }
+
+
     public enum EnemyState
     {
         Idle,

@@ -24,13 +24,10 @@ public class MossGiant : Enemy, IDamagable
     {
         Debug.Log("MossGiant::Damage()");
         health--;
-        //SetCurrentState(EnemyState.Hit);
         isHit = true;
-        //SetCurrentState(EnemyState.Incombat);
         if (health < 1)
         {
             isDead = true;
-            //SetCurrentState(EnemyState.Death);
         }
 
     }

@@ -16,6 +16,9 @@ public class Player : MonoBehaviour, IDamagable
     private PlayerAnimations _anim;
     private SpriteRenderer _playerSprite;
     private SpriteRenderer _swordArcSprite;
+    [SerializeField]
+    private int health = 5;
+    private bool isHit = false;
 
     public int Health { get; set; }
 
@@ -27,9 +30,12 @@ public class Player : MonoBehaviour, IDamagable
         _rigid = GetComponent<Rigidbody2D>();
         _anim = GetComponent<PlayerAnimations>();
 
-
+        
         _playerSprite = transform.GetChild(0).GetComponent<SpriteRenderer>(); //sorunu getchild(0) yaparak çözdüm.
         _swordArcSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
+
+        
+
     }
 
     // Update is called once per frame
@@ -95,9 +101,6 @@ public class Player : MonoBehaviour, IDamagable
             _swordArcSprite.flipX = false;
             _swordArcSprite.flipY = false;
 
-
-
-
             Vector3 newPos = _swordArcSprite.transform.localPosition;
             newPos.x = 1.01f;
             _swordArcSprite.transform.localPosition = newPos;
@@ -112,9 +115,6 @@ public class Player : MonoBehaviour, IDamagable
             _playerSprite.flipX = true;
             _swordArcSprite.flipX = true;
             _swordArcSprite.flipY = true;
-
-            
-
 
             Vector3 newPos = _swordArcSprite.transform.localPosition;
             newPos.x = -1.01f;
@@ -144,6 +144,22 @@ public class Player : MonoBehaviour, IDamagable
 
     public void Damage()
     {
-        Debug.Log("Player::Damage()");
+        health--;
+        isHit = true;
+        if(isHit == true)
+        {
+            _anim.Hit();
+            isHit = false;
+        }
+        
+        if(health < 1)
+        {
+            _anim.DeathPlayer();
+            return;
+        }
     }
+
+   
+
+
 }

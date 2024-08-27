@@ -6,6 +6,7 @@ using UnityEngine;
 public class AcidEffect : MonoBehaviour
 {
     private Spider _spider;
+    private Player player;
 
     // Start is called before the first frame update
     void Start()
@@ -34,13 +35,26 @@ public class AcidEffect : MonoBehaviour
 
         if(other.tag == "Player")
         {
-            IDamagable hit = other.GetComponent<IDamagable>();
+            //IDamagable hit = other.GetComponent<IDamagable>();
 
-            if(hit != null)
-            {
-                hit.Damage();
-                Destroy(this.gameObject);
-            }
+            //hit.Damage();
+
+
+            player.Damage();
+            Destroy(this.gameObject);
+
+
+
+
+            //IDamagable hit = other.GetComponent<IDamagable>();
+
+
+            //if (hit != null)
+            //{
+            //    hit.Damage();
+            //    Destroy(this.gameObject);
+            //}
         }
+
     }
 }
