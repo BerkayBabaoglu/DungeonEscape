@@ -34,9 +34,7 @@ public class Player : MonoBehaviour, IDamagable
         
         _playerSprite = transform.GetChild(0).GetComponent<SpriteRenderer>(); //sorunu getchild(0) yaparak çözdüm.
         _swordArcSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
-
         
-
     }
 
     // Update is called once per frame

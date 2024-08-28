@@ -13,25 +13,30 @@ public abstract class Enemy : MonoBehaviour
     protected int speed;
     [SerializeField]
     protected int gems;
+    protected bool isHit = false;
+    protected bool isDead = false;
+    protected int currentTargetIndex = 0;
+    protected float distanceFromTarget = 0.3f;
+    private int situationCounter = 1;
+    private bool isAttacking = false;
+    private Coroutine attackCR;
+
 
     [SerializeField]
     protected Transform[] patrolPoints;
-
     protected Transform currentTarget;
+
+
     protected Animator anim;
+
+
     protected SpriteRenderer sprite;
 
-    protected bool isHit = false;
-    
 
     protected Player player;
-    protected bool isDead = false;
+
 
     protected EnemyState currentState;
-
-    protected int currentTargetIndex = 0;
-
-    protected float distanceFromTarget = 0.3f;
 
 
     public virtual void Init()
@@ -39,7 +44,7 @@ public abstract class Enemy : MonoBehaviour
         anim = transform.GetChild(0).GetComponent<Animator>();
         sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        
+
         SetCurrentTarget();
     }
 
@@ -68,10 +73,24 @@ public abstract class Enemy : MonoBehaviour
 
         if (distance < 0.1f)
         {
-            OnTargetPointReached();
+            if (currentState == EnemyState.Patrolling)
+                OnTargetPointReached();
+            else if (!isAttacking)
+            {
+                isAttacking = true;
+                attackCR = StartCoroutine(AttackIE());
+
+            }
+
         }
         else
         {
+            if(currentState == EnemyState.Incombat && isAttacking)
+            {
+                isAttacking = false;
+                StopCoroutine(attackCR);
+            }
+
             transform.position = Vector3.MoveTowards(transform.position, currentTarget.position, speed * Time.deltaTime);
         }
     }
@@ -79,7 +98,6 @@ public abstract class Enemy : MonoBehaviour
     void OnTargetPointReached()
     {
         
-
         SetCurrentState(EnemyState.Idle);
         StartCoroutine(WaitInterPatrolIE());
     }
@@ -99,17 +117,11 @@ public abstract class Enemy : MonoBehaviour
             case EnemyState.Idle:
                 anim.SetInteger("AnimIndex", (int)AnimationType.Idle);
                 break;
-            case EnemyState.Death:
+            case EnemyState.Dead:
                 anim.SetInteger("AnimIndex", (int)AnimationType.Death);
-                break;
-            case EnemyState.Incombat:
-                anim.SetInteger("AnimIndex", (int)AnimationType.Attack);
                 break;
             case EnemyState.Patrolling:
                 anim.SetInteger("AnimIndex", (int)AnimationType.Walk);
-                break;
-            case EnemyState.Hit:
-                anim.SetInteger("AnimIndex", (int)AnimationType.Hit);
                 break;
         }
     }
@@ -129,47 +141,41 @@ public abstract class Enemy : MonoBehaviour
 
     public void OnPlayerInteracted()
     {
-        if(player != null && !player.IsDead())
+        if (player != null && !player.IsDead())
         {
-            // Sadece x ekseninde hareket etmek için, player'ýn y konumunu koruyarak yeni bir hedef pozisyon oluþturuyoruz
             Vector3 targetPosition = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
-            currentTarget = new GameObject().transform;  // Geçici bir GameObject kullanarak hedef oluþturuyoruz
+            currentTarget = new GameObject().transform;
             currentTarget.position = targetPosition;
 
-            SetCurrentState(EnemyState.Incombat);
-            StartCoroutine(AttackIE());
-        }
-       
-    }
+            //flip the enemy
+            if (currentTarget.position != null)
+            {
+                sprite.flipX = currentTarget.position.x < transform.position.x;
+            }
 
-    //public void OnPlayerInteracted()
-    //{
+
+            if (isHit)
+            {
+                anim.SetInteger("AnimIndex", (int)AnimationType.Hit);
+            }
+            else
+            {
+                StartCoroutine(AttackIE());
+
+            }
+        }
         
-    //    currentTarget = player.transform;
-    //    StartCoroutine(AttackIE());
-        
-    //}
+    }
 
     IEnumerator AttackIE()
     {
         yield return new WaitForSeconds(1.5f);
-        SetCurrentState(EnemyState.Incombat);
-        
-        
+        anim.SetInteger("AnimIndex", (int)AnimationType.Attack);
     }
 
     public void OnPlayerExited()
     {
-        if (!player.IsDead())
-        {
-            SetCurrentTarget();
-        }
-        else
-        {
-            SetCurrentState(EnemyState.Patrolling);
-            SetCurrentTarget();
-        }
-        
+        SetCurrentState(EnemyState.Patrolling);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -201,7 +207,6 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-
     void FlipImage()
     {
         if (currentTarget != null && patrolPoints.Length > 1)
@@ -214,23 +219,40 @@ public abstract class Enemy : MonoBehaviour
     {
         if (isDead)
         {
-            SetCurrentState(EnemyState.Death);
-            StartCoroutine(DestroyAfterDeath());
-            return;
+            if (situationCounter == 1)
+            {
+                SetCurrentState(EnemyState.Dead);
+                StartCoroutine(DestroyAfterDeath());
+                situationCounter = 0;
+                return;
+            }
+
         }
 
         if (isHit)
         {
+
+            if (sprite.flipX == true)
+            {
+                anim.SetInteger("AnimIndex", (int)AnimationType.HitLeft);
+            }
+            else if (sprite.flipX == false)
+            {
+                anim.SetInteger("AnimIndex", (int)AnimationType.Hit);
+            }
             StartCoroutine(SituationIE());
+            isHit = false;
         }
-        isHit = false;
+
     }
 
     IEnumerator SituationIE()
     {
-        SetCurrentState(EnemyState.Hit);  // Önce Hit durumuna geçiyoruz.
-        yield return new WaitForSeconds(1.5f);
-        SetCurrentState(EnemyState.Incombat);  // Hit animasyonu bittiðinde tekrar Incombat durumuna geçiyoruz.
+        if (!isDead && currentState != EnemyState.Dead)
+        {
+            yield return new WaitForSeconds(1.5f);
+            SetCurrentState(EnemyState.Incombat);
+        }
     }
 
     private IEnumerator DestroyAfterDeath()
@@ -244,9 +266,8 @@ public abstract class Enemy : MonoBehaviour
     {
         Idle,
         Incombat,
-        Death,
+        Dead,
         Patrolling,
-        Hit
     }
 
     public enum AnimationType
@@ -255,7 +276,8 @@ public abstract class Enemy : MonoBehaviour
         Walk,
         Death,
         Attack,
-        Hit
+        Hit,
+        HitLeft
     }
 }
 
