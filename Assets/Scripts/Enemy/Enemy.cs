@@ -224,9 +224,7 @@ public abstract class Enemy : MonoBehaviour
                 StartCoroutine(DestroyAfterDeath());
                 situationCounter = 0;
             }
-
         }
-
     }
 
     IEnumerator SituationIE()
