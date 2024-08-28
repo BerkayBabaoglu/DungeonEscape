@@ -15,15 +15,6 @@ public class TargetToPlayer : MonoBehaviour
         }
     }
 
-    //private void Update()
-    //{
-    //    if (isPlayerInRange && player != null)
-    //    {
-            
-    //        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-    //    }
-    //}
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
-public class Spider : Enemy , IDamagable
+public class Spider : Enemy, IDamagable
 {
     [SerializeField]
     private GameObject acidEffectPrefab;
     private SpriteRenderer _spiderSprite;
-    
 
     public int Health { get; set; }
-
 
     public override void Init()
     {
@@ -20,10 +16,14 @@ public class Spider : Enemy , IDamagable
         Health = base.health;
     }
 
+    private void Start()
+    {
+        _spiderSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+    }
+
     public override void Movement()
     {
-        //sit still
-
+        // Spider hareket etmiyor, yerinde duruyor.
     }
 
     public void Damage()
@@ -39,16 +39,13 @@ public class Spider : Enemy , IDamagable
 
     public void Attack()
     {
-        
-        Instantiate(acidEffectPrefab, transform.position, Quaternion.identity);
-        
-    }
+        GameObject acid = Instantiate(acidEffectPrefab, transform.position, Quaternion.identity);
+        AcidEffect acidEffect = acid.GetComponent<AcidEffect>();
 
-    public bool Flip(bool isLeft)
-    {
-        isLeft = _spiderSprite.flipX;
-        return isLeft;
+        if (acidEffect != null)
+        {
+            acidEffect.SetDirection(_spiderSprite.flipX);  //asite yon bilgisi gonderiyor
+        }
     }
-
-    
 }
+

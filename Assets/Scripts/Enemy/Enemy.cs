@@ -100,6 +100,7 @@ public abstract class Enemy : MonoBehaviour
         
         SetCurrentState(EnemyState.Idle);
         StartCoroutine(WaitInterPatrolIE());
+
     }
 
     private IEnumerator WaitInterPatrolIE()
@@ -161,7 +162,6 @@ public abstract class Enemy : MonoBehaviour
             else
             {
                 StartCoroutine(AttackIE());
-
             }
         }
         
@@ -221,27 +221,10 @@ public abstract class Enemy : MonoBehaviour
         {
             if (situationCounter == 1)
             {
-                SetCurrentState(EnemyState.Dead);
                 StartCoroutine(DestroyAfterDeath());
                 situationCounter = 0;
-                return;
             }
 
-        }
-
-        if (isHit)
-        {
-
-            if (sprite.flipX == true)
-            {
-                anim.SetInteger("AnimIndex", (int)AnimationType.HitLeft);
-            }
-            else if (sprite.flipX == false)
-            {
-                anim.SetInteger("AnimIndex", (int)AnimationType.Hit);
-            }
-            StartCoroutine(SituationIE());
-            isHit = false;
         }
 
     }
@@ -257,7 +240,8 @@ public abstract class Enemy : MonoBehaviour
 
     private IEnumerator DestroyAfterDeath()
     {
-        yield return new WaitForSeconds(3f);
+        anim.SetInteger("AnimIndex", (int)AnimationType.Death);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 

@@ -1,60 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 
 public class AcidEffect : MonoBehaviour
 {
-    private Spider _spider;
-    private Player player;
+    private bool moveLeft;
+    private float moveSpeed = 3.0f;
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetDirection(bool isLeft)
     {
-        Destroy(this.gameObject, 5.0f);
-        _spider = GetComponent<Spider>();
+        moveLeft = isLeft;
+    }
+
+    private void Start()
+    {
+        Destroy(this.gameObject, 5.0f);  // 5 saniye sonra asit etkisini yok et
     }
 
     private void Update()
     {
-        if(_spider != null)
+        if (moveLeft)
         {
-            if (_spider.Flip(true))
-            {
-                transform.Translate(Vector3.left * 3 * Time.deltaTime);
-            }
-            else if (_spider.Flip(false))
-            {
-                transform.Translate(Vector3.right * 3 * Time.deltaTime);
-            }
+            transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
-        if(other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            //IDamagable hit = other.GetComponent<IDamagable>();
-
-            //hit.Damage();
-
-
-            player.Damage();
-            Destroy(this.gameObject);
-
-
-
-
-            //IDamagable hit = other.GetComponent<IDamagable>();
-
-
-            //if (hit != null)
-            //{
-            //    hit.Damage();
-            //    Destroy(this.gameObject);
-            //}
+            Player player = other.GetComponent<Player>();
+            if (player != null)
+            {
+                player.Damage();  // Player'a hasar ver
+            }
+            Destroy(this.gameObject);  // Asit etkisini yok et
         }
-
     }
 }
+
