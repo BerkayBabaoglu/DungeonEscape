@@ -9,8 +9,19 @@ public class Shop : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
+
+        
+
         if(collision.tag == "Player")
         {
+            Player player = collision.GetComponent<Player>();
+
+            if (player != null)
+            {
+                UIManager.Instance.OpenShop(player.diamondAmount);
+            }
+            
             shopPanel.SetActive(true);
         }
         

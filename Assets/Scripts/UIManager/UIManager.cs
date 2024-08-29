@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenShop(int gemCount)
     {
-
+        playerGemsCount.text = "" + gemCount + "G ";
     }
 
 
