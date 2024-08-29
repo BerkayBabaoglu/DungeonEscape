@@ -7,6 +7,9 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
+
+    public GameObject diamondPrefab;
+
     [SerializeField]
     protected int health;
     [SerializeField]
@@ -109,7 +112,7 @@ public abstract class Enemy : MonoBehaviour
         SetCurrentTarget();
     }
 
-    public void SetCurrentState(EnemyState state)
+    public virtual void SetCurrentState(EnemyState state)
     {
         currentState = state;
 
@@ -129,7 +132,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void SetCurrentTarget()
     {
-        if (patrolPoints.Length == 0)
+        if (patrolPoints.Length == 0 && patrolPoints == null)
             return;
 
         currentTarget = patrolPoints[++currentTargetIndex % patrolPoints.Length];
@@ -238,7 +241,16 @@ public abstract class Enemy : MonoBehaviour
 
     private IEnumerator DestroyAfterDeath()
     {
-        anim.SetInteger("AnimIndex", (int)AnimationType.Death);
+        
+        if(anim == null)
+        {
+            Debug.Log("Death animation is NULL");
+        }
+        else
+        {
+            anim.SetInteger("AnimIndex", (int)AnimationType.Death);
+        }
+
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }

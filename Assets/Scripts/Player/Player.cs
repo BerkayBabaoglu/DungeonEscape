@@ -20,6 +20,7 @@ public class Player : MonoBehaviour, IDamagable
     private int health = 5;
     private bool isHit = false;
     private bool isDead = false;
+    public int diamondAmount = 0;
 
     public int Health { get; set; }
 

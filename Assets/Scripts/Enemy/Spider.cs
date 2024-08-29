@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spider : Enemy, IDamagable
 {
+
     [SerializeField]
     private GameObject acidEffectPrefab;
     private SpriteRenderer _spiderSprite;
@@ -23,29 +24,37 @@ public class Spider : Enemy, IDamagable
 
     public override void Movement()
     {
-        // Spider hareket etmiyor, yerinde duruyor.
     }
 
     public void Damage()
     {
         health--;
+        isHit = true;
+        Debug.Log("Spider::Damage()");
 
         if (health < 1)
         {
             isDead = true;
-            anim.SetTrigger("Death");
         }
     }
 
     public void Attack()
     {
+        Debug.Log("Spider::Attack()");
         GameObject acid = Instantiate(acidEffectPrefab, transform.position, Quaternion.identity);
         AcidEffect acidEffect = acid.GetComponent<AcidEffect>();
-
         if (acidEffect != null)
         {
             acidEffect.SetDirection(_spiderSprite.flipX);  //asite yon bilgisi gonderiyor
         }
+    }
+
+    public override void SetCurrentState(EnemyState state)
+    {
+        if (state == EnemyState.Patrolling)
+            return;
+
+        base.SetCurrentState(state);
     }
 }
 

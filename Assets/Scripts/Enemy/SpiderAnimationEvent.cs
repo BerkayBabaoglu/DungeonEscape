@@ -12,7 +12,7 @@ public class SpiderAnimationEvent : MonoBehaviour
 
     public void Fire()
     {
-     
+
         _spider.Attack();
 
     }
