@@ -26,14 +26,14 @@ public class Skeleton : Enemy , IDamagable
 
         Debug.Log("Skeleton::Damage()");
         health--;
-        //anim.SetTrigger("Hit");
+        
         isHit = true;
-        //anim.SetBool("InCombat", true);
+       
 
         if(health < 1)
         {
             isDead = true;
-            //anim.SetTrigger("Death");
+            
             GameObject diamond = Instantiate(diamondPrefab, transform.position, Quaternion.identity) as GameObject;
             diamond.GetComponent<Diamond>().gems = base.gems;
         }
