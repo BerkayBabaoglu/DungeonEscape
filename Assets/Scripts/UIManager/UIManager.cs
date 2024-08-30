@@ -23,17 +23,30 @@ public class UIManager : MonoBehaviour
 
     public Text playerGemsCount;
     public Image selectionImg;
-
-    public void OpenShop(int gemCount)
-    {
-        playerGemsCount.text = "" + gemCount + "G ";
-    }
+    public Text gemCountText;
+    
 
 
     public void Awake()
     {
         instance = this;
     }
+
+    public void OpenShop(int gemCount)
+    {
+        playerGemsCount.text = "" + gemCount + "G ";
+
+
+    }
+
+
+
+    public void UpdateGemCount(int count)
+    {
+        gemCountText.text = "" + count;
+
+    }
+    
 
     public void UpdateShopSelection(int yPosition)
     {

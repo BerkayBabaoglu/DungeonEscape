@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Diamond : MonoBehaviour
 {
-    public int gems = 1;
+    public int gems = 10;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,7 +14,7 @@ public class Diamond : MonoBehaviour
 
             if(player != null)
             {
-                player.diamondAmount += gems;
+                player.AddGems(gems);
                 Destroy(this.gameObject);
             }
         }

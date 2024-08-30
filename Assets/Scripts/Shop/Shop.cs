@@ -10,6 +10,7 @@ public class Shop : MonoBehaviour
     private int currentItemCost;
     private Player _player;
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
@@ -23,6 +24,7 @@ public class Shop : MonoBehaviour
             }
             
             shopPanel.SetActive(true);
+            
         }
         
     }
@@ -32,6 +34,7 @@ public class Shop : MonoBehaviour
         if(collision.tag == "Player")
         {
             shopPanel.SetActive(false);
+            
         }
     }
 
@@ -77,6 +80,7 @@ public class Shop : MonoBehaviour
             if(_player != null)
             {
                 UIManager.Instance.OpenShop(_player.diamondAmount);
+                UIManager.Instance.UpdateGemCount(_player.diamondAmount);
             }
         }
         else

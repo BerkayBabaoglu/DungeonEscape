@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b575a5f4150cc449b03bf533d2a2cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gems: 1
+  gems: 10
 --- !u!58 &2896726856181058319
 CircleCollider2D:
   m_ObjectHideFlags: 0

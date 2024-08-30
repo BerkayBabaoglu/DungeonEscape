@@ -164,4 +164,10 @@ public class Player : MonoBehaviour, IDamagable
         return isDead;
     }
 
+    public void AddGems(int amount)
+    {
+        diamondAmount += amount;
+        UIManager.Instance.UpdateGemCount(diamondAmount);
+    }
+
 }
