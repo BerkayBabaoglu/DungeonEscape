@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     private static UIManager instance;
+    
     public static UIManager Instance
     {
         get
@@ -21,7 +22,7 @@ public class UIManager : MonoBehaviour
     }
 
     public Text playerGemsCount;
-
+    public Image selectionImg;
 
     public void OpenShop(int gemCount)
     {
@@ -33,6 +34,12 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
     }
+
+    public void UpdateShopSelection(int yPosition)
+    {
+        selectionImg.rectTransform.anchoredPosition = new Vector2(selectionImg.rectTransform.anchoredPosition.x, yPosition);
+    }
+
 
 
 }
