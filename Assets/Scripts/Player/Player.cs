@@ -145,6 +145,7 @@ public class Player : MonoBehaviour, IDamagable
     public void Damage()
     {
         health--;
+        UIManager.Instance.UpdateLives(Health);
         isHit = true;
         if(isHit == true)
         {

@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     public Text playerGemsCount;
     public Image selectionImg;
     public Text gemCountText;
+    public Image[] healtBar;
     
 
 
@@ -53,6 +54,16 @@ public class UIManager : MonoBehaviour
         selectionImg.rectTransform.anchoredPosition = new Vector2(selectionImg.rectTransform.anchoredPosition.x, yPosition);
     }
 
+    public void UpdateLives(int livesRemaining)
+    {
+       for(int i=0; i <= livesRemaining; i++)
+        {
+            if(i == livesRemaining)
+            {
+                healtBar[i].enabled = false;
+            }
+        }
+    }
 
 
 }
