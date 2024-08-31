@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour, IDamagable
 {
@@ -24,6 +25,11 @@ public class Player : MonoBehaviour, IDamagable
 
     public int Health { get; set; }
 
+    [SerializeField] private PlayerInput playerInput;
+
+    private InputAction movementAction;
+    private InputAction jumpAction;
+    private InputAction attackAction;
 
 
     // Start is called before the first frame update
@@ -35,7 +41,11 @@ public class Player : MonoBehaviour, IDamagable
         
         _playerSprite = transform.GetChild(0).GetComponent<SpriteRenderer>(); //sorunu getchild(0) yaparak çözdüm.
         _swordArcSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
-        
+
+        playerInput = GetComponent<PlayerInput>();
+        movementAction = playerInput.actions["Movement"];
+        jumpAction = playerInput.actions["Jump"];
+        attackAction = playerInput.actions["Attack"];
     }
 
     // Update is called once per frame
@@ -43,11 +53,17 @@ public class Player : MonoBehaviour, IDamagable
     {
         Movement();
         AttackSystem();
+
+        
+
     }
 
     void Movement()
     {
-        float move = Input.GetAxisRaw("Horizontal");
+        Vector2 moveInput = movementAction.ReadValue<Vector2>();
+        float move = moveInput.x;
+
+        //1float move = Input.GetAxisRaw("Horizontal");
         _grounded = IsGrounded();
 
         if (move > 0)
@@ -72,6 +88,7 @@ public class Player : MonoBehaviour, IDamagable
 
         }
 
+        
         _rigid.velocity = new Vector2(move * speed, _rigid.velocity.y);
 
         _anim.Move(move);
@@ -126,12 +143,18 @@ public class Player : MonoBehaviour, IDamagable
 
     void AttackSystem()
     {
-        if (Input.GetMouseButtonDown(0) && IsGrounded() == true)
+
+        if(playerInput.actions["Attack"].triggered && IsGrounded())
+        {
+            _anim.Attack();
+        }
+
+        /*if (Input.GetMouseButtonDown(0) && IsGrounded() == true)
         {
 
             _anim.Attack();
 
-        }
+        }*/
     }
 
 
