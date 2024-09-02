@@ -1,12 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour, IDamagable
 {
-
     private Rigidbody2D _rigid;
     [SerializeField]
     private float _jumpForce = 7.0f;
@@ -25,60 +23,40 @@ public class Player : MonoBehaviour, IDamagable
 
     public int Health { get; set; }
 
-    [SerializeField] private PlayerInput playerInput;
+    private Vector2 movementVector;
 
-    private InputAction movementAction;
-    private InputAction jumpAction;
-    private InputAction attackAction;
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _rigid = GetComponent<Rigidbody2D>();
         _anim = GetComponent<PlayerAnimations>();
-
-        
-        _playerSprite = transform.GetChild(0).GetComponent<SpriteRenderer>(); //sorunu getchild(0) yaparak çözdüm.
+        _playerSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         _swordArcSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
-
-        playerInput = GetComponent<PlayerInput>();
-        movementAction = playerInput.actions["Movement"];
-        jumpAction = playerInput.actions["Jump"];
-        attackAction = playerInput.actions["Attack"];
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         Movement();
         AttackSystem();
-
-        
-
     }
 
-    void Movement()
-    {
-        Vector2 moveInput = movementAction.ReadValue<Vector2>();
-        float move = moveInput.x;
+    // Hareket girdisini almak için
+    
 
-        //1float move = Input.GetAxisRaw("Horizontal");
+    private void Movement()
+    {
+        float move = Input.GetAxisRaw("Horizontal");
+        
+
         _grounded = IsGrounded();
 
         if (move > 0)
         {
-            flip(true);
-            // Sað yöne hareket ediyor
-
+            flip(true);  // Sağ yöne hareket ediyor
         }
         else if (move < 0)
         {
-            flip(false);
-            // Sol yöne hareket ediyor
-
+            flip(false);  // Sol yöne hareket ediyor
         }
-
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded() == true)
         {
@@ -88,20 +66,19 @@ public class Player : MonoBehaviour, IDamagable
 
         }
 
-        
-        _rigid.velocity = new Vector2(move * speed, _rigid.velocity.y);
 
+        _rigid.velocity = new Vector2(move * speed, _rigid.velocity.y);
         _anim.Move(move);
     }
 
-    bool IsGrounded()
+    private bool IsGrounded()
     {
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down, 1f, 1 << 8);
         Debug.DrawRay(transform.position, Vector2.down, Color.green);
 
         if (hitInfo.collider != null)
         {
-            if (_resetJump == false)
+            if (!_resetJump)
             {
                 _anim.Jump(false);
                 return true;
@@ -110,55 +87,41 @@ public class Player : MonoBehaviour, IDamagable
         return false;
     }
 
-    void flip(bool faceRight)
+    
+
+    private void flip(bool faceRight)
     {
-        if (faceRight == true)
+        if (faceRight)
         {
             _playerSprite.flipX = false;
             _swordArcSprite.flipX = false;
             _swordArcSprite.flipY = false;
-
             Vector3 newPos = _swordArcSprite.transform.localPosition;
             newPos.x = 1.01f;
             _swordArcSprite.transform.localPosition = newPos;
-
-            //transform.localScale = new Vector3(1, 1, 1);
-
-
         }
-        else if (faceRight == false)
+        else
         {
-
             _playerSprite.flipX = true;
             _swordArcSprite.flipX = true;
             _swordArcSprite.flipY = true;
-
             Vector3 newPos = _swordArcSprite.transform.localPosition;
             newPos.x = -1.01f;
             _swordArcSprite.transform.localPosition = newPos;
-
-            //transform.localScale = new Vector3(-1, 1, 1);
         }
     }
 
-    void AttackSystem()
+    private void AttackSystem()
     {
-
-        if(playerInput.actions["Attack"].triggered && IsGrounded())
+        if (Input.GetMouseButtonDown(0) && IsGrounded() == true)
         {
+
             _anim.Attack();
+
         }
-
-        /*if (Input.GetMouseButtonDown(0) && IsGrounded() == true)
-        {
-
-            _anim.Attack();
-
-        }*/
     }
 
-
-    IEnumerator resetJumpRoutine()
+    private IEnumerator resetJumpRoutine()
     {
         _resetJump = true;
         yield return new WaitForSeconds(0.1f);
@@ -170,13 +133,13 @@ public class Player : MonoBehaviour, IDamagable
         health--;
         UIManager.Instance.UpdateLives(Health);
         isHit = true;
-        if(isHit == true)
+        if (isHit)
         {
             _anim.Hit();
             isHit = false;
         }
-        
-        if(health < 1 && !isDead)
+
+        if (health < 1 && !isDead)
         {
             _anim.DeathPlayer();
             isDead = true;
@@ -193,5 +156,4 @@ public class Player : MonoBehaviour, IDamagable
         diamondAmount += amount;
         UIManager.Instance.UpdateGemCount(diamondAmount);
     }
-
 }
