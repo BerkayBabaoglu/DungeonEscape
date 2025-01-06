@@ -26,8 +26,8 @@ If you'd like to contribute, please submit a `pull request` or open an `issue`. 
 
 
 ## In-Game Screenshots
-
-![Screenshot 1](https://github.com/user-attachments/assets/82ace3c1-3404-4b2e-b832-a3bd93b2de9e)
+![Screenshot 1](https://github.com/user-attachments/assets/f8d50b25-2f87-4ca0-8b52-3026d061ff29)
 ##
-![Screenshot 2](https://github.com/user-attachments/assets/7f590906-652f-4760-8433-33c3dc48d5a2)
+![Screenshot 2](https://github.com/user-attachments/assets/6ad21a44-a461-430d-b411-1b14133fa5e3)
+
 
